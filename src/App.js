@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Line from "./components/Line";
+import Type from "./components/Type";
+
+import Terminal from "./Terminal";
+const terminal = new Terminal();
 
 function App() {
+  const [log, setLog] = useState([]);
+  const [currDir, setCurrDir] = useState("");
+
+  const handleSubmit = (value) => {
+    terminal.write(value);
+    const logs = terminal.getLogs();
+
+    setLog(JSON.parse(JSON.stringify(logs)));
+    setCurrDir(terminal.currentDir);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {log.map((l, key) => (
+        <Line log={l} key={key} />
+      ))}
+      <Type handleSubmit={handleSubmit} currDir={currDir} />
     </div>
   );
 }
