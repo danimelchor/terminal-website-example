@@ -1,28 +1,19 @@
 import { useState } from "react";
-import Line from "./components/Line";
-import Type from "./components/Type";
+import TerminalContainer from "./components/TerminalContainer";
+import Title from "./components/Title";
 
-import Terminal from "./Terminal";
-const terminal = new Terminal();
+import { AiFillHome } from "react-icons/ai";
 
 function App() {
-  const [log, setLog] = useState([]);
-  const [currDir, setCurrDir] = useState("");
-
-  const handleSubmit = (value) => {
-    terminal.write(value);
-    const logs = terminal.getLogs();
-
-    setLog(JSON.parse(JSON.stringify(logs)));
-    setCurrDir(terminal.currentDir);
-  };
+  const [started, setStarted] = useState(false);
 
   return (
     <div className="App">
-      {log.map((l, key) => (
-        <Line log={l} key={key} />
-      ))}
-      <Type handleSubmit={handleSubmit} currDir={currDir} />
+      <a href="http://danielmelchor.com" className="website-button">
+        <AiFillHome />
+      </a>
+      <Title started={started} />
+      <TerminalContainer setStarted={setStarted} />
     </div>
   );
 }
