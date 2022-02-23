@@ -119,8 +119,9 @@ $color-list: (
   margin-top: 5px;
   transition: font-size 200ms;
 
-  & span {
+  & p {
     color: white;
+    display: block;
   }
 
   & input {
@@ -129,6 +130,8 @@ $color-list: (
     background: transparent;
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+    flex-grow: 1;
 
     &:focus {
       outline: 0 none;

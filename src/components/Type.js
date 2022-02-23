@@ -82,9 +82,9 @@ export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
 
   return (
     <form className="type" onSubmit={handle}>
-      <span>
+      <p>
         <span className="c-teal-1">/{currDir}</span> ~{" "}
-      </span>
+      </p>
       <input
         type="text"
         autoFocus={window.innerWidth > 768}
