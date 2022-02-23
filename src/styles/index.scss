@@ -45,6 +45,7 @@ $color-list: (
   }
 }
 
+// MAIN
 .App {
   background-color: $bg;
   width: 100vw;
@@ -57,6 +58,7 @@ $color-list: (
   gap: 10px;
 }
 
+// TERMINAL
 .terminal {
   flex-direction: column;
   display: flex;
@@ -68,12 +70,15 @@ $color-list: (
   border-radius: 10px;
   box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.5);
   padding: 12px;
+  box-sizing: border-box;
+  transition: border-radius 300ms, width 300ms, height 300ms;
 
   & .bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    cursor: pointer;
 
     .buttons {
       width: 100%;
@@ -85,18 +90,32 @@ $color-list: (
         // width: 12px;
         // height: 12px;
         border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
       }
 
       & .green {
         background-color: rgb(77, 212, 77);
+        color: rgb(27, 92, 27);
       }
 
       & .yellow {
         background-color: rgb(255, 221, 28);
+        color: rgb(95, 82, 10);
       }
 
       & .red {
         background-color: rgb(197, 69, 69);
+      }
+
+      & svg {
+        opacity: 0;
+      }
+
+      &:hover svg {
+        opacity: 1;
       }
     }
 
@@ -109,6 +128,7 @@ $color-list: (
   }
 }
 
+// TYPE BOX
 .type {
   color: white;
   display: flex;
@@ -150,82 +170,83 @@ $color-list: (
   }
 }
 
+// LOG
 .log {
   overflow-y: scroll;
   width: 100%;
   display: flex;
   flex-direction: column;
   transition: font-size 200ms;
-}
 
-.line {
-  color: white;
-  width: 100%;
-  margin: 5px 0;
-}
-
-.line-list {
-  color: white;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 5px 0;
-
-  & div {
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.line-table {
-  color: white;
-  width: 100%;
-  margin: 5px 0;
-  box-sizing: border-box;
-
-  & td {
-    padding: 5px 2px;
-  }
-
-  & tr td:nth-child(3) {
-    text-align: right;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.line-data {
-  & h1 {
-    font-weight: 900;
-    color: $green-1;
-  }
-
-  & h2 {
-    font-weight: normal;
+  .line {
     color: white;
+    width: 100%;
+    margin: 5px 0;
   }
 
-  & p {
-    color: $gray-1;
+  .line-list {
+    color: white;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 5px 0;
+
+    & div {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
-  & li {
-    color: $gray-1;
+  .line-table {
+    color: white;
+    width: 100%;
+    margin: 5px 0;
+    box-sizing: border-box;
+
+    & td {
+      padding: 5px 2px;
+    }
+
+    & tr td:nth-child(3) {
+      text-align: right;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
-  & a {
-    color: $gray-2;
-    text-decoration: none;
+  .line-data {
+    & h1 {
+      font-weight: 900;
+      color: $green-1;
+    }
 
-    &:hover {
-      text-decoration: underline;
+    & h2 {
+      font-weight: normal;
+      color: white;
+    }
+
+    & p {
+      color: $gray-1;
+    }
+
+    & li {
+      color: $gray-1;
+    }
+
+    & a {
+      color: $gray-2;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -263,6 +284,7 @@ $color-list: (
   }
 }
 
+// GO TO DMELCHOR.COM BUTTON
 .website-button {
   position: fixed;
   right: 1%;
@@ -285,6 +307,7 @@ $color-list: (
   }
 }
 
+// MEDIA QUERIES
 @media screen and (min-width: 640px) {
   .App {
     .terminal {
@@ -322,4 +345,14 @@ $color-list: (
     margin-bottom: 0;
     font-size: 15px;
   }
+}
+
+// MAXIMIZED TERMINAl
+.App .maximized {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 0;
 }

@@ -4,6 +4,8 @@ import { useState } from "react";
 import Log from "../components/Log";
 import Type from "../components/Type";
 
+import { CgMaximizeAlt, CgMinimize } from "react-icons/cg";
+
 import Terminal from "../Terminal";
 const terminal = new Terminal();
 
@@ -12,6 +14,7 @@ export default function TerminalContainer({ setStarted, textFromTitle }) {
   const [bottomLog, setBottomLog] = useState([]);
   const [currDir, setCurrDir] = useState("");
   const [fontSize, setFontSize] = useState(16);
+  const [maximize, setMaximize] = useState(false);
 
   const updateLog = () => {
     const logs = terminal.logs;
@@ -33,6 +36,8 @@ export default function TerminalContainer({ setStarted, textFromTitle }) {
     updateLog();
   };
 
+  const toggleMaximize = () => setMaximize(!maximize);
+
   useEffect(() => {
     if (window.innerWidth <= 425) setFontSize(12);
     else if (window.innerWidth <= 768) setFontSize(14);
@@ -44,9 +49,12 @@ export default function TerminalContainer({ setStarted, textFromTitle }) {
   }, [textFromTitle]);
 
   return (
-    <div className="terminal" style={{ fontSize: fontSize }}>
+    <div
+      className={"terminal" + (maximize ? " maximized" : "")}
+      style={{ fontSize: fontSize }}
+    >
       <div className="bar">
-        <div className="buttons">
+        <div className="buttons" onClick={toggleMaximize}>
           <div
             className="red"
             style={{ width: fontSize * 0.8, height: fontSize * 0.8 }}
@@ -54,11 +62,15 @@ export default function TerminalContainer({ setStarted, textFromTitle }) {
           <div
             className="yellow"
             style={{ width: fontSize * 0.8, height: fontSize * 0.8 }}
-          ></div>
+          >
+            {maximize && <CgMinimize />}
+          </div>
           <div
             className="green"
             style={{ width: fontSize * 0.8, height: fontSize * 0.8 }}
-          ></div>
+          >
+            {!maximize && <CgMaximizeAlt />}
+          </div>
         </div>
         <div className="change-size">
           <span>{fontSize}px</span>
