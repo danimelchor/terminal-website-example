@@ -1,5 +1,6 @@
 {
   "name": "terminal",
+  "homepage": "https://danimelchor.github.io/terminal-website-example/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
