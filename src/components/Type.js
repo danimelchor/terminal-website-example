@@ -87,12 +87,14 @@ export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
       </span>
       <input
         type="text"
-        autoFocus
+        autoFocus={window.innerWidth > 768}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onBlur={(e) => {
-          e.target.selectionStart = e.target.value.length;
-          e.target.focus();
+          if (window.innerWidth > 768) {
+            e.target.selectionStart = e.target.value.length;
+            e.target.focus();
+          }
         }}
         onKeyDown={handleKeyDown}
         autocorrect="off"
