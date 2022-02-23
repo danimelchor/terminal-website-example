@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { T } from "../Terminal/TerminalData";
 
 export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
   const [value, setValue] = useState("");
   const [cmdIdx, setCmdIdx] = useState(0);
 
+  const inputRef = useRef(null);
+
   const handle = (e) => {
     e.preventDefault();
+    if (window.innerWidth <= 768) inputRef.current.blur();
     handleSubmit(value);
     setValue("");
     setCmdIdx(terminal.cmdLog.length - 1);
@@ -81,7 +84,7 @@ export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
   };
 
   return (
-    <form className="type" onSubmit={handle}>
+    <form className="type" onSubmit={handle} action="">
       <p>
         <span className="c-teal-1">/{currDir}</span> ~{" "}
       </p>
@@ -99,7 +102,9 @@ export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
         onKeyDown={handleKeyDown}
         autocorrect="off"
         autocapitalize="none"
+        ref={inputRef}
       />
+      <input type="submit" value="submit" />
     </form>
   );
 }

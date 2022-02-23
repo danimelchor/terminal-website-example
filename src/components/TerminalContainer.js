@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useState } from "react";
 import Log from "../components/Log";
@@ -32,6 +32,12 @@ export default function TerminalContainer({ setStarted }) {
     terminal.write(value);
     updateLog();
   };
+
+  useEffect(() => {
+    if (window.innerWidth <= 425) setFontSize(12);
+    else if (window.innerWidth <= 768) setFontSize(14);
+    else setFontSize(16);
+  }, [window.innerWidth]);
 
   return (
     <div className="terminal" style={{ fontSize: fontSize }}>

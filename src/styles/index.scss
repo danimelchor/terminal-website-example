@@ -124,7 +124,7 @@ $color-list: (
     display: block;
   }
 
-  & input {
+  & input[type="text"] {
     border: 0 none;
     color: white;
     background: transparent;
@@ -136,6 +136,17 @@ $color-list: (
     &:focus {
       outline: 0 none;
     }
+  }
+
+  & input[type="submit"] {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    border: 0 none;
+    position: absolute;
+    pointer-events: none;
   }
 }
 
