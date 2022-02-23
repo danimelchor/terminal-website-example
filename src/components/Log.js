@@ -46,8 +46,8 @@ const Table = ({ content, setValue }) => {
           <col span="1" style={{ width: "30%" }} />
         </colgroup>
         <tbody>
-          {content.map((r) => (
-            <tr>
+          {content.map((r, key) => (
+            <tr key={key}>
               <td>{r[0]}</td>
               <td>{r[1]}</td>
               <td onClick={() => setValue(r[2].split(": ")[1])}>{r[2]}</td>

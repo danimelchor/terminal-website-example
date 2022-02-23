@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function Title({started}) {
+const getSize = (w) => {
+  if (w <= 425) return 18
+  else if (w <= 768) return 20
+  else return 22
+}
+
+export default function Title({started, setTextFromTitle}) {
+  const [fontSize, setFontSize] = useState()
+
+  useEffect(() => {
+    setFontSize(getSize(window.innerWidth))
+  }, [])
+  
   return (
     <div className="title">
       <div className="ascii">
@@ -12,7 +24,13 @@ export default function Title({started}) {
         <pre>   \ \_______\ \__\ \__\ \__\\ \__\ \__\ \_______\ \_______\       \ \__\    \ \__|\__\</pre>
         <pre>    \|_______|\|__|\|__|\|__| \|__|\|__|\|_______|\|_______|        \|__|     \|__\|__|</pre>
       </div>
-      <p style={{fontSize: started ? 0 : 16, opacity: started ? 0 : 1}}>Type <span>help</span> in the terminal to start</p>
+      <p style={{
+        fontSize: started ? 0 : fontSize,
+        opacity: started ? 0 : 1,
+        margin: started ? "0" : "15px 0"
+      }}>
+        Type or click <span onClick={() => setTextFromTitle("help")}>help</span> in the terminal to start
+      </p>
     </div>
   );
 }

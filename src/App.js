@@ -6,14 +6,18 @@ import { AiFillHome } from "react-icons/ai";
 
 function App() {
   const [started, setStarted] = useState(false);
+  const [textFromTitle, setTextFromTitle] = useState();
 
   return (
     <div className="App">
       <a href="http://danielmelchor.com" className="website-button">
         <AiFillHome />
       </a>
-      <Title started={started} />
-      <TerminalContainer setStarted={setStarted} />
+      <Title started={started} setTextFromTitle={setTextFromTitle} />
+      <TerminalContainer
+        setStarted={setStarted}
+        textFromTitle={textFromTitle}
+      />
     </div>
   );
 }

@@ -7,7 +7,7 @@ import Type from "../components/Type";
 import Terminal from "../Terminal";
 const terminal = new Terminal();
 
-export default function TerminalContainer({ setStarted }) {
+export default function TerminalContainer({ setStarted, textFromTitle }) {
   const [log, setLog] = useState([]);
   const [bottomLog, setBottomLog] = useState([]);
   const [currDir, setCurrDir] = useState("");
@@ -37,7 +37,11 @@ export default function TerminalContainer({ setStarted }) {
     if (window.innerWidth <= 425) setFontSize(12);
     else if (window.innerWidth <= 768) setFontSize(14);
     else setFontSize(16);
-  }, [window.innerWidth]);
+  }, []);
+
+  useEffect(() => {
+    if (textFromTitle) handleSubmit(textFromTitle);
+  }, [textFromTitle]);
 
   return (
     <div className="terminal" style={{ fontSize: fontSize }}>
@@ -83,6 +87,7 @@ export default function TerminalContainer({ setStarted }) {
         currDir={currDir}
         terminal={terminal}
         updateLog={updateLog}
+        textFromTitle={textFromTitle}
       />
       {bottomLog && <Log content={bottomLog.content} type={bottomLog.type} />}
     </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { T } from "../Terminal/TerminalData";
 
 export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
@@ -100,11 +100,11 @@ export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
           }
         }}
         onKeyDown={handleKeyDown}
-        autocorrect="off"
-        autocapitalize="none"
+        autoCorrect="off"
+        autoCapitalize="none"
         ref={inputRef}
       />
-      <input type="submit" value="submit" />
+      <input type="submit" value="submit" id="terminal-input" />
     </form>
   );
 }
