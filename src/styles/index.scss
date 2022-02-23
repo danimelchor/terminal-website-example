@@ -62,7 +62,7 @@ $color-list: (
   display: flex;
   background-color: $main-1;
   width: 90vw;
-  height: 60vh;
+  height: 80vh;
   justify-content: baseline;
   align-items: baseline;
   border-radius: 10px;
@@ -279,6 +279,7 @@ $color-list: (
 @media screen and (min-width: 768px) {
   .App .terminal {
     width: 70vw;
+    height: 60vh;
   }
 
   .title .ascii {
