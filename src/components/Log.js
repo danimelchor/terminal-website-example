@@ -16,11 +16,15 @@ const getColor = (name) => {
 const Default = ({ content }) => <div className="line c-blue-1">{content}</div>;
 const Error = ({ content }) => <div className="line">{content}</div>;
 
-const List = ({ content }) => (
+const List = ({ content, setValue }) => (
   <div className="line-list">
     {content.map((item, key) => (
-      <div className={getColor(item)} key={key}>
-        {item}
+      <div
+        className={getColor(item.text)}
+        key={key}
+        onClick={() => setValue(item.click)}
+      >
+        {item.text}
       </div>
     ))}
   </div>
@@ -32,7 +36,7 @@ const Command = ({ content }) => (
   </div>
 );
 
-const Table = ({ content }) => {
+const Table = ({ content, setValue }) => {
   return (
     <div className="line-table">
       <table>
@@ -46,7 +50,7 @@ const Table = ({ content }) => {
             <tr>
               <td>{r[0]}</td>
               <td>{r[1]}</td>
-              <td>{r[2]}</td>
+              <td onClick={() => setValue(r[2].split(": ")[1])}>{r[2]}</td>
             </tr>
           ))}
         </tbody>
@@ -55,12 +59,14 @@ const Table = ({ content }) => {
   );
 };
 
-export default function Log({ type, content }) {
+export default function Log({ type, content, setValue }) {
   if (type === T.text) return <Default content={content} />;
-  else if (type === T.list) return <List content={content} />;
+  else if (type === T.list)
+    return <List content={content} setValue={setValue} />;
   else if (type === T.cmd) return <Command content={content} />;
   else if (type === T.error) return <Error content={content} />;
-  else if (type === T.table) return <Table content={content} />;
+  else if (type === T.table)
+    return <Table content={content} setValue={setValue} />;
   else if (type === T.data) return <>{FILE_STRUCTURE[content]}</>;
   return <></>;
 }

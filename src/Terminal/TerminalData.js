@@ -13,26 +13,27 @@ import Skills from "../data/Skills";
 // File system
 export const LS_STRUCTURE = {
   "": [
-    "education.md",
-    "experience.md",
-    "projects/",
-    "README.md",
-    "resume.sh",
-    "skills.md",
+    { text: "education.md", click: "cat education.md" },
+    { text: "experience.md", click: "cat experience.md" },
+    { text: "projects/", click: "cd projects/" },
+    { text: "README.md", click: "cat README.md" },
+    { text: "resume.sh", click: "sh resume.sh" },
+    { text: "skills.md", click: "cat skills.md" },
   ],
   projects: [
-    ".ShowAllProjects.md",
-    "BUNexus.md",
-    "danielmechor.md",
-    "Decentrapass.md",
-    "Wordel*.md",
+    { text: "..", click: "cd .." },
+    { text: ".ShowAll.md", click: "cat .ShowAll.md" },
+    { text: "BUNexus.md", click: "cat BUNexus.md" },
+    { text: "danielmechor.md", click: "cat danielmechor.md" },
+    { text: "Decentrapass.md", click: "cat Decentrapass.md" },
+    { text: "Wordel*.md", click: "cat Wordel*.md" },
   ],
 };
 
 // File structure
 export const FILE_STRUCTURE = {
   "README.md": <README />,
-  ".ShowAllProjects.md": <AllProjects />,
+  ".ShowAll.md": <AllProjects />,
   "BUNexus.md": <BUNexus />,
   "danielmechor.md": <Danielmelchor />,
   "Decentrapass.md": <Decentrapass />,

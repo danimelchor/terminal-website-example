@@ -6,6 +6,11 @@ import {
   FILE_STRUCTURE,
 } from "./TerminalData";
 
+const ext = (name) => {
+  const parts = name.split(".");
+  return parts[parts.length - 1];
+};
+
 export default class Terminal {
   currentDir = "";
   logs = [];
@@ -32,15 +37,29 @@ export default class Terminal {
   write(txt) {
     this.addLog(T.cmd, { cmd: txt, dir: this.currentDir });
 
-    const words = txt.split(" ");
-    const cmd = words[0];
-    const args = words[1];
+    const words = txt.trim().split(" ");
+    const cmd = words[0].trim();
+    const args =
+      words[1] !== undefined && words[1].trim() !== ""
+        ? words[1].trim()
+        : undefined;
+
+    if (words.length > 2) {
+      this.addLog(T.error, `Too many arguments (${words.length - 1}).`);
+      return;
+    }
 
     this.cmdLog.push(txt);
     this.execCmd(cmd, args);
   }
 
   execCmd(cmd, args) {
+    if (cmd.startsWith("./")) {
+      const newArgs = cmd.replaceAll("./", "");
+      this.sh(newArgs);
+      return;
+    }
+
     switch (cmd) {
       case "ls":
         this.ls(args);
@@ -86,7 +105,7 @@ export default class Terminal {
   }
 
   cd(args) {
-    if (args === undefined || args === "..") {
+    if (args === undefined || args === ".." || args === "../") {
       this.currentDir = "";
       return;
     }
@@ -96,13 +115,13 @@ export default class Terminal {
 
     if (
       !Object.keys(LS_STRUCTURE).includes(dir) ||
-      !files.includes(`${dir}/`)
+      !files.map((a) => a.text).includes(`${dir}/`)
     ) {
       this.addLog(T.error, `${args} is not a directory.`);
       return;
     }
 
-    this.currentDir = args.replaceAll("/", "");
+    this.currentDir = dir;
   }
 
   clear(args) {
@@ -127,11 +146,17 @@ export default class Terminal {
     if (args === undefined) {
       this.addLog(T.error, "cat requires one argument (the file to show).");
       return;
+    } else if (ext(args) !== "md") {
+      this.addLog(T.error, 'You can only cat files ending in ".md" here');
+      return;
     }
 
     const files = this.getFiles();
     const file = args.replaceAll("/", "");
-    if (!files.includes(file)) {
+
+    console.log(files, file);
+
+    if (!files.map((a) => a.text).includes(file)) {
       this.addLog(T.error, `The file ${file} doesn't exist.`);
       return;
     }
@@ -143,11 +168,14 @@ export default class Terminal {
     if (args === undefined) {
       this.addLog(T.error, "sh requires one argument (the file to run).");
       return;
+    } else if (ext(args) !== "sh") {
+      this.addLog(T.error, 'You can only sh files ending in ".sh"');
+      return;
     }
 
     const files = this.getFiles();
     const file = args.replaceAll("/", "");
-    if (!files.includes(file)) {
+    if (!files.map((a) => a.text).includes(file)) {
       this.addLog(T.error, `The file ${file} doesn't exist.`);
       return;
     }

@@ -64,7 +64,12 @@ export default function TerminalContainer({ setStarted }) {
       </div>
       <div className="log" id="log">
         {log.map((l, key) => (
-          <Log content={l.content} type={l.type} key={key} />
+          <Log
+            content={l.content}
+            type={l.type}
+            key={key}
+            setValue={handleSubmit}
+          />
         ))}
       </div>
       <Type

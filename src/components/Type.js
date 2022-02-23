@@ -14,7 +14,12 @@ export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
 
   // AUTOCOMPLETE COMMAND
   const autoCompleteCmd = (cmd) => {
-    const options = terminal.getCommands().filter((a) => a.startsWith(cmd));
+    const options = terminal
+      .getCommands()
+      .filter((a) => a.startsWith(cmd))
+      .map((o) => {
+        return { text: o, click: `${o}` };
+      });
 
     if (options.length === 1) {
       setValue(options[0]);
@@ -26,10 +31,10 @@ export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
 
   // AUTOCOMPLETE FOLDER/FILENAME
   const autoCompleteFile = (cmd, file) => {
-    const options = terminal.getFiles().filter((a) => a.startsWith(file));
+    const options = terminal.getFiles().filter((a) => a.text.startsWith(file));
 
     if (options.length === 1) {
-      setValue(`${cmd} ${options[0]}`);
+      setValue(`${cmd} ${options[0].text}`);
       terminal.deleteBottomLog();
     } else terminal.setBottomLog(T.list, options);
 
@@ -41,7 +46,9 @@ export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
     const words = txt.split(" ");
 
     if (words.length === 1) {
-      autoCompleteCmd(words[0]);
+      if (words[0].startsWith("./")) {
+        autoCompleteFile("sh", words[0].replaceAll("./", ""));
+      } else autoCompleteCmd(words[0]);
     } else {
       autoCompleteFile(words[0], words[1]);
     }
