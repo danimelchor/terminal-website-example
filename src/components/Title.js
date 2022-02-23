@@ -12,7 +12,7 @@ export default function Title({started}) {
         <pre>   \ \_______\ \__\ \__\ \__\\ \__\ \__\ \_______\ \_______\       \ \__\    \ \__|\__\</pre>
         <pre>    \|_______|\|__|\|__|\|__| \|__|\|__|\|_______|\|_______|        \|__|     \|__\|__|</pre>
       </div>
-      <p style={{opacity: started ? 0 : 1}}>Type <span>help</span> in the terminal to start</p>
+      <p style={{fontSize: started ? 0 : 16, opacity: started ? 0 : 1}}>Type <span>help</span> in the terminal to start</p>
     </div>
   );
 }

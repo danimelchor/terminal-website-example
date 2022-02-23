@@ -247,7 +247,7 @@ $color-list: (
   p {
     font-family: sans-serif;
     font-size: 1.2rem;
-    transition: opacity 500ms;
+    transition: opacity 500ms, font-size 500ms;
     color: $main-1;
   }
 
