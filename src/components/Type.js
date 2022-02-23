@@ -95,6 +95,8 @@ export default function Type({ handleSubmit, currDir, terminal, updateLog }) {
           e.target.focus();
         }}
         onKeyDown={handleKeyDown}
+        autocorrect="off"
+        autocapitalize="none"
       />
     </form>
   );
