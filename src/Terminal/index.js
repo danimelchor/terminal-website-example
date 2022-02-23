@@ -154,8 +154,6 @@ export default class Terminal {
     const files = this.getFiles();
     const file = args.replaceAll("/", "");
 
-    console.log(files, file);
-
     if (!files.map((a) => a.text).includes(file)) {
       this.addLog(T.error, `The file ${file} doesn't exist.`);
       return;
