@@ -254,6 +254,7 @@ $color-list: (
   span {
     font-family: monospace;
     color: white;
+    cursor: pointer;
     font-style: italic;
 
     &:hover {
